@@ -3,7 +3,7 @@ const int flipServo1Pin = 2;
 const int flipServo2Pin = 4;
 const int motionPin = 10;
 const int greenLedPin = 7;
-const int redLedPin = 7;
+const int redLedPin = 8;
 
 Servo flipServo1, flipServo2;
 
@@ -19,18 +19,19 @@ void setup()
   flipServo2.attach(flipServo2Pin);
 }
 
-void greenLedPinOn() {
+void greenLedOn() {
   digitalWrite(greenLedPin, HIGH);                                 
 }
-void greenLedPinOff(){
+void greenLedOff(){
   digitalWrite(greenLedPin, LOW);          
 }
-void redLedPinOn() {
+void redLedOn() {
   digitalWrite(redLedPin, HIGH);                                 
 }
-void redLedPinOff(){
+void redLedOff(){
   digitalWrite(redLedPin, LOW);          
 }
+
 void flip() {
   int pos = 0;
   int speed = 5;
@@ -63,5 +64,6 @@ void loop()
   //delay(500);
   //flipback();
   //Serial.println(String(motionDetect()));
+  redLedOn();
 }
 
