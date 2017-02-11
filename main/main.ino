@@ -1,11 +1,13 @@
 #include <Servo.h>
 const int flipServo1Pin = 2;
 const int flipServo2Pin = 4;
+const int motionPin = 10;
 
 Servo flipServo1, flipServo2;
 
 void setup()
 {
+  Serial.begin(9600);
   flipServo1.attach(flipServo1Pin);
   flipServo2.attach(flipServo2Pin);
 }
@@ -30,10 +32,17 @@ void flipback() {
     delay(15);
   }
 }
+
+boolean motionDetect(){
+  boolean detected = false;
+  if (digitalRead(motionPin) == 1) detected = true;
+  return detected;
+}
 void loop()
 {
-  flip();
-  delay(500);
-  flipback();
+  //flip();
+  //delay(500);
+  //flipback();
+  Serial.println(String(motionDetect()));
 }
 
