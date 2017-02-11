@@ -96,8 +96,8 @@ void loop()
 {
   //flip();
   //delay(500);
-  //flipback();
-  //Serial.println(String(motionDetect()));
+  //flipback();,,,,,,,,,,,iiiii
+  //Serial.println(String(m8 l/otionDetect()));
   //redLedOn();
   //platformUp();
   platformDown();
