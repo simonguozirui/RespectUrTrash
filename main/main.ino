@@ -1,4 +1,7 @@
+#include <DFRobotRomeoBLEMini.h>
 #include <Servo.h>
+
+
 const int flipServo1Pin = 2;
 const int flipServo2Pin = 4;
 const int motionPin = 10;
@@ -6,6 +9,7 @@ const int greenLedPin = 7;
 const int redLedPin = 8;
 
 Servo flipServo1, flipServo2;
+DFRobotRomeoBLEMini liftMotors;
 
 void setup()
 {
@@ -53,17 +57,31 @@ void flipback() {
   }
 }
 
+void platformUp(){
+  liftMotors.speed(255, 255);
+}
+
+void platformDown(){
+  liftMotors.speed(-255, -255);
+}
+
+void platformHold(){
+  liftMotors.speed(0, 0);
+}
+
 boolean motionDetect() {
   boolean detected = false;
   if (digitalRead(motionPin) == 1) detected = true;
   return detected;
 }
+
 void loop()
 {
   //flip();
   //delay(500);
   //flipback();
   //Serial.println(String(motionDetect()));
-  redLedOn();
+  //redLedOn();
+  platformUp();
 }
 
