@@ -7,6 +7,8 @@ const int flipServo2Pin = 4;
 const int motionPin = 10;
 const int greenLedPin = 7;
 const int redLedPin = 8;
+const int buzzerPin = 13;
+
 
 Servo flipServo1, flipServo2;
 DFRobotRomeoBLEMini liftMotors;
@@ -18,22 +20,23 @@ void setup()
   pinMode(motionPin, INPUT);
   pinMode(greenLedPin, OUTPUT);
   pinMode(redLedPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
   Serial.begin(9600);
   flipServo1.attach(flipServo1Pin);
   flipServo2.attach(flipServo2Pin);
 }
 
 void greenLedOn() {
-  digitalWrite(greenLedPin, HIGH);                                 
+  digitalWrite(greenLedPin, HIGH);
 }
-void greenLedOff(){
-  digitalWrite(greenLedPin, LOW);          
+void greenLedOff() {
+  digitalWrite(greenLedPin, LOW);
 }
 void redLedOn() {
-  digitalWrite(redLedPin, HIGH);                                 
+  digitalWrite(redLedPin, HIGH);
 }
-void redLedOff(){
-  digitalWrite(redLedPin, LOW);          
+void redLedOff() {
+  digitalWrite(redLedPin, LOW);
 }
 
 void flip() {
@@ -57,15 +60,15 @@ void flipback() {
   }
 }
 
-void platformUp(){
+void platformUp() {
   liftMotors.speed(255, 255);
 }
 
-void platformDown(){
+void platformDown() {
   liftMotors.speed(-255, -255);
 }
 
-void platformHold(){
+void platformHold() {
   liftMotors.speed(0, 0);
 }
 
@@ -75,6 +78,20 @@ boolean motionDetect() {
   return detected;
 }
 
+void buzzer()
+{
+  unsigned char i, j;
+
+  for (i = 0; i < 100; i++)
+  {
+    digitalWrite(buzzerPin, HIGH);
+    delay(2);
+    digitalWrite(buzzerPin, LOW);
+    delay(2);
+  }
+
+}
+
 void loop()
 {
   //flip();
@@ -82,6 +99,8 @@ void loop()
   //flipback();
   //Serial.println(String(motionDetect()));
   //redLedOn();
-  platformUp();
+  //platformUp();
+  platformDown();
+  buzzer();
 }
 

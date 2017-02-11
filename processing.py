@@ -7,7 +7,7 @@
 
 from clarifai import rest
 from clarifai.rest import ClarifaiApp
-
+from clarifai.rest import Image as ClImage
 # The client takes the `APP_ID` and `APP_SECRET` you created in your <a href="/account/application">Clarifai
 # account.</a> You can set these variables in your environment as:
 
@@ -21,4 +21,8 @@ app = ClarifaiApp("4dR2VJxpC1r5oHSwjk_0XnQXK7k5jEv6tRcuDVb9", "6o187-_f803bdezLf
 model = app.models.get("aaa03c23b3724a16a56b629203edc62c")
 
 # predict with the model
-print(model.predict_by_url(url='https://samples.clarifai.com/metro-north.jpg'))
+#result = model.predict_by_url(url='https://samples.clarifai.com/metro-north.jpg')
+#print(result)
+
+image = ClImage(file_obj=open('/Users/simon.guo/Desktop/coke.jpg', 'rb'))
+print (model.predict([image]))
