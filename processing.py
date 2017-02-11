@@ -8,6 +8,8 @@
 from clarifai import rest
 from clarifai.rest import ClarifaiApp
 from clarifai.rest import Image as ClImage
+
+import json
 # The client takes the `APP_ID` and `APP_SECRET` you created in your <a href="/account/application">Clarifai
 # account.</a> You can set these variables in your environment as:
 
@@ -24,5 +26,9 @@ model = app.models.get("aaa03c23b3724a16a56b629203edc62c")
 #result = model.predict_by_url(url='https://samples.clarifai.com/metro-north.jpg')
 #print(result)
 
-image = ClImage(file_obj=open('/Users/simon.guo/Desktop/coke.jpg', 'rb'))
-print (model.predict([image]))
+image = ClImage(file_obj=open('test.png', 'rb'))
+print model.predict([image])
+#info = (model.predict([image])).json()
+#print info
+
+recycle_keywords = ["container","box","recycling","juice"]

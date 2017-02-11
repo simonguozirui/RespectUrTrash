@@ -35,10 +35,12 @@ app = ClarifaiApp("4dR2VJxpC1r5oHSwjk_0XnQXK7k5jEv6tRcuDVb9", "6o187-_f803bdezLf
 # get the general model
 model = app.models.get("aaa03c23b3724a16a56b629203edc62c")
 
+container = ["container","box","recycling","juice","drinks"]
+paper = ["paper","newspaper","magazine","letter","metal"]
+
 bytes=''
 while True:
-    #image = ClImage(file_obj=open('/Users/simon.guo/Desktop/coke.jpg', 'rb'))
-    #print (model.predict([image]))
+    identity = "garbage";
     bytes+=stream.read(1024)
     a = bytes.find('\xff\xd8')
     b = bytes.find('\xff\xd9')
@@ -49,16 +51,19 @@ while True:
         cv2.imshow(hoststr,i)
         if cv2.waitKey(1) == 27: #esc key
             exit(0)
-        else if cv2.waitKey(1) == 13: #enter key
+        elif cv2.waitKey(1) == 13: #enter key
             #image = ClImage(file_obj=open('/Users/simon.guo/Desktop/coke.jpg', 'rb'))
             #print (model.predict([image]))
-            cv2.imwrite("result.jpg", jpg)
-
-
-
-# predict with the model
-#result = model.predict_by_url(url='https://samples.clarifai.com/metro-north.jpg')
-#print(result)
-
-#
+            print "pic captured"
+            cv2.imwrite("result.jpeg", i, [cv2.IMWRITE_JPEG_QUALITY, 10])
+            image = ClImage(file_obj=open('result.jpeg', 'rb'))
+            data = str(model.predict([image]))
+            print data
+            for keyword in paper:
+                if keyword in data: 
+                    identity = "paper"
+            for keyword in container:
+                if keyword in data: 
+                    identity = "container"
+            print identity
 
