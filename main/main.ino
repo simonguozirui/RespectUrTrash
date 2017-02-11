@@ -42,7 +42,7 @@ void redLedOff() {
 void flip() {
   int pos = 0;
   int speed = 5;
-  for (pos = 0; pos < 180; pos += speed)
+  for (pos = 0; pos < 90; pos += speed)
   {
     flipServo1.write(pos);
     flipServo2.write(180 - pos);
@@ -52,7 +52,7 @@ void flip() {
 void flipback() {
   int pos = 0;
   int speed = 5;
-  for (pos = 180; pos >= 1; pos -= speed)
+  for (pos = 90; pos >= 1; pos -= speed)
   {
     flipServo1.write(pos);
     flipServo2.write(180 - pos);
@@ -94,13 +94,17 @@ void buzzer()
 
 void loop()
 {
-  //flip();
-  //delay(500);
-  //flipback();,,,,,,,,,,,iiiii
+  flip();
+  delay(500);
+  flipback();
   //Serial.println(String(m8 l/otionDetect()));
   //redLedOn();
-  //platformUp();
+  platformUp();
+  delay(4000);
   platformDown();
-  buzzer();
+  delay(4000);
+  //buzzer();
+  platformHold();
+  
 }
 
