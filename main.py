@@ -21,7 +21,9 @@ sys.path.insert(0, '/usr/local/lib/python2.7/site-packages')
 import numpy as np
 import cv2
 import urllib2
-	
+import serial
+from time import sleep
+ser = serial.Serial('/dev/cu.usbmodem1421', 9600)	
 host = "10.0.1.35:8080"
 if len(sys.argv)>1:
     host = sys.argv[1]
@@ -40,6 +42,7 @@ paper = ["paper","newspaper","magazine","letter","metal"]
 
 bytes=''
 while True:
+    #sleep(.1)
     identity = "garbage";
     bytes+=stream.read(1024)
     a = bytes.find('\xff\xd8')
@@ -49,9 +52,11 @@ while True:
         bytes= bytes[b+2:]
         i = cv2.imdecode(np.fromstring(jpg, dtype=np.uint8),cv2.CV_LOAD_IMAGE_COLOR)
         cv2.imshow(hoststr,i)
+        #print ser.read()
         if cv2.waitKey(1) == 27: #esc key
-            exit(0)
+           exit(0)
         elif cv2.waitKey(1) == 13: #enter key
+        #elif ser.readline() == "m":
             #image = ClImage(file_obj=open('/Users/simon.guo/Desktop/coke.jpg', 'rb'))
             #print (model.predict([image]))
             print "pic captured"
@@ -66,4 +71,10 @@ while True:
                 if keyword in data: 
                     identity = "container"
             print identity
+            if (identity == "container"):
+                ser.write('c')
+            elif (identity == "garbage"):
+                ser.write('g')
+            elif (identity == "paper"):
+                ser.write('p')
 

@@ -41,17 +41,21 @@ void redLedOff() {
 
 void flip() {
   int pos = 0;
-  int speed = 5;
+  int speed = 2;
   for (pos = 0; pos < 90; pos += speed)
   {
-    flipServo1.write(pos);
-    flipServo2.write(180 - pos);
+    flipServo1.write(180-pos);
+    flipServo2.write(pos);
     delay(15);
   }
 }
+void fliphold(){
+  flipServo1.write(90);
+  flipServo2.write(90);
+}
 void flipback() {
   int pos = 0;
-  int speed = 5;
+  int speed = 2;
   for (pos = 90; pos >= 1; pos -= speed)
   {
     flipServo1.write(pos);
@@ -78,6 +82,14 @@ boolean motionDetect() {
   return detected;
 }
 
+void identify() {
+  if (motionDetect()) {
+    platformDown();
+    delay(4000);
+  }
+  
+}
+
 void buzzer()
 {
   unsigned char i, j;
@@ -89,22 +101,44 @@ void buzzer()
     digitalWrite(buzzerPin, LOW);
     delay(2);
   }
-
 }
-
+void check() {
+  fliphold();
+  char inByte = ' ';
+  if (Serial.available()) { // only send data back if data has been sent
+    char inByte = Serial.read(); // read the incoming data
+    Serial.println(inByte); // send the data back in a new line so that it is not all one long line
+    if (inByte == 'c') {
+      flip();
+      delay(2000);
+    }
+    else if (inByte == 'g' || inByte == 'p'){
+      buzzer();
+      delay(500);
+      platformUp();
+      delay(4000);
+      platformHold();
+      delay(4000);
+    }
+  }
+  delay(100); // delay for 1/10 of a second
+}
 void loop()
 {
-  flip();
-  delay(500);
-  flipback();
   //Serial.println(String(m8 l/otionDetect()));
   //redLedOn();
-  platformUp();
-  delay(4000);
-  platformDown();
-  delay(4000);
+  //platformUp();
+  //delay(4000);
+  //platformDown();
+  //delay(4000);
   //buzzer();
-  platformHold();
-  
+  //platformHold();
+  identify();
+  check();
+  //flip();
+  //delay(2000);
+  //flipback();
+  //delay(500);
+
 }
 
