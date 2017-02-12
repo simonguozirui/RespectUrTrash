@@ -126,14 +126,14 @@ void loop()
 {
   //Serial.println(String(m8 l/otionDetect()));
   //redLedOn();
-  platformUp();
-  delay(4000);
+  //platformUp();
+  //delay(4000);
   //platformDown();
   //delay(4000);
   //buzzer();
   //platformHold();
-  //identify();
-  //check();
+  identify();
+  check();
   //flip();
   //delay(2000);
   //flipback();
